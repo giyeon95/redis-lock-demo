@@ -26,7 +26,7 @@ public class TicketController {
 
     @PostMapping("/tickets")
     public void insertTicket() {
-        ticketService.insertTicketRedisson();
+        ticketService.insertTicketWithRedissonAndAspect();
     }
 
 

@@ -65,6 +65,18 @@ public class TicketService {
         }
     }
 
+    @DistributeLock(key = "ticket")
+    public void insertTicketWithRedissonAndAspect() {
+        if (ticketRepository.count() >= 50) {
+            throw new RuntimeException("Ticket is not enough");
+        }
+
+        sleep(1);
+
+        ticketRepository.save(Ticket.builder()
+            .name(UUID.randomUUID().toString())
+            .build());
+    }
 
     private static void sleep(long millis) {
         try {
